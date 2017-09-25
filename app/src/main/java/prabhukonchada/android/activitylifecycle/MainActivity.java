@@ -7,12 +7,20 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "ACTIVITY_LIFECYCLE";
+    public static String DATA_TAG = "DATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG,"onCreate");
+
+        if(savedInstanceState != null)
+        {
+            String persistedData = savedInstanceState.getString(DATA_TAG);
+            Log.d(TAG,persistedData);
+        }
+
     }
 
     @Override
@@ -50,5 +58,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d(TAG,"onRestart");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG,"onSaveInstanceState");
+        outState.putString(DATA_TAG,"persist data");
     }
 }
